@@ -4,28 +4,48 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
+    this.timer = container.querySelector('.timer');
+    this.word = "";
 
     this.reset();
-
+    
     this.registerEvents();
+    
   }
 
   reset() {
+    
     this.setNewWord();
     this.winsElement.textContent = 0;
     this.lossElement.textContent = 0;
+    
   }
 
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода символа вызываем this.success()
-      При неправильном вводе символа - this.fail();
-      DOM-элемент текущего символа находится в свойстве this.currentSymbol.
-     */
+    document.addEventListener("keydown", k => {
+      if (k.key == 'Shift') {
+        return;
+      }
+      if (k.key == this.currentSymbol.textContent ) {
+        this.success();
+      } else {
+        this.fail();
+      }
+    })
   }
+
+  startTimer(word) {
+    this.timer.textContent = word.length;
+    this.timerId = setInterval(() => {
+      if (Number(this.timer.textContent) > 0) {
+        this.timer.textContent = Number(this.timer.textContent) - 1;
+      } else {
+          alert("Слишком долго");
+          this.fail();
+      }
+  }, 1000);
+  }
+
 
   success() {
     if(this.currentSymbol.classList.contains("symbol_current")) this.currentSymbol.classList.remove("symbol_current");
@@ -49,12 +69,14 @@ class Game {
       alert('Вы проиграли!');
       this.reset();
     }
+    
     this.setNewWord();
   }
 
   setNewWord() {
     const word = this.getWord();
-
+    clearInterval(this.timerId);
+    this.startTimer(word);
     this.renderWord(word);
   }
 
@@ -73,7 +95,6 @@ class Game {
         'javascript'
       ],
       index = Math.floor(Math.random() * words.length);
-
     return words[index];
   }
 
