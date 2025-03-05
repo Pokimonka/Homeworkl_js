@@ -17,31 +17,24 @@ minus.forEach(mn => {
 
 function createProductInCart(id, count, imgSrc) {
     let cart = document.querySelector(".cart__products");
-
-    let div = document.createElement("div");
-    div.classList.add("cart__product");
-    div.setAttribute("data-id", id);
-
-    let img = `<img class="cart__product-image" src=${imgSrc}>`;
-    let divCount = `<div class="cart__product-count">${count}</div>`;
-
-    div.insertAdjacentHTML("afterBegin", divCount);
-    div.insertAdjacentHTML("afterBegin", img);
-
-    cart.appendChild(div);
+    
+    cart.insertAdjacentHTML('afterbegin', `
+    <div class="cart__product" data-id=${id}>
+        <img class="cart__product-image" src=${imgSrc}>
+        <div class="cart__product-count">${count}</div>
+    </div>
+    `);
 }
 
 function addToCart(id, count, imgSrc) {
     let cart = document.querySelector(".cart__products");
     let products = cart.querySelectorAll(".cart__product");
-    if (products) {
-        let isIdInCart = Array.from(products).findIndex(prod => prod.getAttribute("data-id") == id);
-        if (isIdInCart >= 0) {
-            let countInCart = products[isIdInCart].querySelector(".cart__product-count");
-            countInCart.textContent = +countInCart.textContent + +count;
-        } else {
-            createProductInCart(id, count, imgSrc);
-        }
+    let isIdInCart = Array.from(products).findIndex(prod => prod.getAttribute("data-id") == id);
+    if (isIdInCart >= 0) {
+        let countInCart = products[isIdInCart].querySelector(".cart__product-count");
+        countInCart.textContent = +countInCart.textContent + +count;
+    } else {
+        createProductInCart(id, count, imgSrc);
     }
 }
 

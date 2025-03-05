@@ -11,15 +11,23 @@ function positionTooltip(text) {
 }
 
 function createTooltip(text) {
-    tooltip.textContent = text.title;
-    tooltip.classList.add("tooltip_active");
-    text.insertAdjacentElement("afterEnd", tooltip);
+    let tooltip_active = document.querySelector(".tooltip_active");
+    console.log(tooltip_active);
+    console.log(tooltip.textContent);
+    console.log(text.title);
+    if (tooltip.textContent == text.title) {
+        tooltip.classList.toggle("tooltip_active");
+    } else {
+        tooltip.textContent = text.title;
+        tooltip.classList.add("tooltip_active");
+        text.insertAdjacentElement("afterEnd", tooltip);
+        positionTooltip(text);
+    }
 }
 
 hasTooltip.forEach((element) => {
     element.addEventListener("click", (el) => {
         el.preventDefault();
-        positionTooltip(element);
         createTooltip(element);
         
     })

@@ -2,7 +2,7 @@ let fontSizeControls = document.querySelectorAll(".font-size");
 let book = document.querySelector(".book");
 const booksFS = "book_fs-";
 let classBook = "book";
-
+document.getElementBy
 function SetBookClass(sizeAttr) {
     if (classBook !== "book") {
         book.classList.remove(classBook);
