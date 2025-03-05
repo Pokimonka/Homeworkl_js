@@ -34,17 +34,6 @@ function createTask(el) {
 let btn = document.querySelector(".tasks__add");
 btn.addEventListener("click", createTask);
 
-// let tasks = document.querySelector(".tasks");
-// tasks.addEventListener("click", () => {
-    
-//     let taskList = document.querySelector(".tasks__list");
-//     if (taskList.childNodes.length > 0) {
-//         let removeBtn = document.querySelectorAll(".task__remove");
-//         removeBtn.forEach(rbtn => {
-//             rbtn.addEventListener("click", removeTask);
-//         })
-//     }
-// })
 
 
 

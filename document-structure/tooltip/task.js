@@ -11,10 +11,6 @@ function positionTooltip(text) {
 }
 
 function createTooltip(text) {
-    let tooltip_active = document.querySelector(".tooltip_active");
-    console.log(tooltip_active);
-    console.log(tooltip.textContent);
-    console.log(text.title);
     if (tooltip.textContent == text.title) {
         tooltip.classList.toggle("tooltip_active");
     } else {
@@ -29,7 +25,6 @@ hasTooltip.forEach((element) => {
     element.addEventListener("click", (el) => {
         el.preventDefault();
         createTooltip(element);
-        
     })
 })
 
