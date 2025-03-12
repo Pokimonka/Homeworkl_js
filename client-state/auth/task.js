@@ -3,6 +3,12 @@ let singinBtn = document.querySelector('#signin__btn');
 let welcome = document.querySelector('.welcome');
 let signin = document.querySelector('.signin');
 
+if (localStorage.id) {
+    welcome.textContent += localStorage.id;
+    welcome.classList.add("welcome_active"); 
+    signin.classList.remove("signin_active");
+}
+
 form.addEventListener('submit', (f) => {
     f.preventDefault();
     let xhr = new XMLHttpRequest();
@@ -11,7 +17,9 @@ form.addEventListener('submit', (f) => {
     xhr.send(formData);
     xhr.onload = function() {
         if (JSON.parse(xhr.response)['success']) {
-            welcome.textContent += JSON.parse(xhr.response)['user_id'];
+            let id = JSON.parse(xhr.response)['user_id'];
+            welcome.textContent += id;
+            localStorage.setItem('id', id);
             welcome.classList.add("welcome_active"); 
             signin.classList.remove("signin_active");
         } else {
